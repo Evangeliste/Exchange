@@ -20,11 +20,12 @@ param (
     [string]$DatabasePath
 )
 
-$DataMove = Get-MailboxDatabase
-$DBFolder = ""+$DataMove+"_DB"
-$LGFolder = ""+$DataMove+"_LOG"
+$DataMove = Get-MailboxDatabase -Server $env:ComputerName
+$DBToMove = $DataMove.Name
+$DBFolder = ""+$DBToMove+"_DB"
+$LGFolder = ""+$DBToMove+"_LOG"
 
-Move-DatabasePath $DataMove -EdbFilePath "$DatabasePath\$DBFolder\$DataMove.edb" -LogFolderPath "$DatabasePath\$LGFolder\" -Confirm:$false -Force
+Move-DatabasePath $DBToMove -EdbFilePath "$DatabasePath\$DBFolder\$DBToMove.edb" -LogFolderPath "$DatabasePath\$LGFolder\" -Confirm:$false -Force
 
 Set-MailboxDatabase $DataMove -CircularLoggingEnabled $true
 
