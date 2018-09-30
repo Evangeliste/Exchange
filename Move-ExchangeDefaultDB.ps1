@@ -8,7 +8,7 @@
 #		Version	: 1.1
 #		UPDate 	: 1.1 : 30 Septembre 2018, prise en charge d'un mode debug par défaut, prise en charge du serveur d'execution
 #
-#       Usage : Move-ExchangeDefaultDB.ps1 -DatabasePath "D:\Microsoft Exchange\"
+#       Usage : Move-ExchangeDefaultDB.ps1 -DatabasePath "D:\Microsoft Exchange\" -DebugMode $True/$False
 #
 #########################################################################################################################
 
@@ -58,7 +58,7 @@ IF ($DebugMode -eq $true)
     Move-DatabasePath $DBToMove -EdbFilePath "$DatabasePath\$DBFolder\$DBToMove.edb" -LogFolderPath "$DatabasePath\$LGFolder\" -Confirm:$false -Force -whatif
     Set-MailboxDatabase $DataMove -CircularLoggingEnabled $true -whatif
     }
-else
+ELSEIF ($DebugMode -eq $False)
     {
     Move-DatabasePath $DBToMove -EdbFilePath "$DatabasePath\$DBFolder\$DBToMove.edb" -LogFolderPath "$DatabasePath\$LGFolder\" -Confirm:$false -Force
     Set-MailboxDatabase $DataMove -CircularLoggingEnabled $true
